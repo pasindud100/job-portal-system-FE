@@ -18,6 +18,7 @@ import TrainerDashboard from "./pages/Trainer/TrainerDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home/Home";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
 
 const App = () => {
   useEffect(() => {
@@ -32,8 +33,8 @@ const App = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
+      {/* <Navbar /> */}
       <Home />
-      {/* <Navbar/> */}
       <Routes>
         <Route
           path="/"
@@ -41,25 +42,44 @@ const App = () => {
             <>
               <MainBanner />
               <FirstAppear />
-             
-              <div >
-                <OurService />
-              </div>
-              <div >
-                <AboutUs />
-              </div>
-              <div >
-                <ContactUs />
-              </div>
+              <OurService />
+              <AboutUs />
+              <ContactUs />
             </>
           }
         />
 
         <Route path="/jobs" element={<JobPost />} />
         <Route path="/courses" element={<CoursePost />} />
-        <Route path="/employer" element={<EmpDashboard />} />
-        <Route path="/trainer" element={<TrainerDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/employer"
+          element={
+            <ProtectedRoute
+              element={<EmpDashboard />}
+              allowedRoles={["ROLE_EMPLOYER", "ROLE_ADMIN"]}
+            />
+          }
+        />
+        <Route
+          path="/trainer"
+          element={
+            <ProtectedRoute
+              element={<TrainerDashboard />}
+              allowedRoles={["ROLE_TRAINER", "ROLE_ADMIN"]}
+            />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute
+              element={<AdminDashboard />}
+              allowedRoles={["ROLE_ADMIN"]}
+            />
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -4,6 +4,9 @@ import DarkMode from "./DarkMode";
 import { Link } from "react-router-dom";
 
 function Navbar({ userInfo, logout }) {
+  // role from local storage
+  const userRole = localStorage.getItem("userRole");
+
   return (
     <div className="shadow-md bg-white dark:bg-gray-900 py-6 dark:text-white duration-200">
       <div className="container py-3 sm:py-0">
@@ -25,15 +28,22 @@ function Navbar({ userInfo, logout }) {
               <li>
                 <Link to={"/courses"}>Courses</Link>
               </li>
-              <li>
-                <Link to={"/employer"}>Employer</Link>
-              </li>
-              <li>
-                <Link to={"/trainer"}>Trainer</Link>
-              </li>
-              <li>
-                <Link to={"/admin"}>Admin</Link>
-              </li>
+              {/*rendering tabs based on user role */}
+              {userRole === "ROLE_EMPLOYER" && (
+                <li>
+                  <Link to={"/employer"}>Employer</Link>
+                </li>
+              )}
+              {userRole === "ROLE_TRAINER" && (
+                <li>
+                  <Link to={"/trainer"}>Trainer</Link>
+                </li>
+              )}
+              {userRole === "ROLE_ADMIN" && (
+                <li>
+                  <Link to={"/admin"}>Admin</Link>
+                </li>
+              )}
             </ul>
             {userInfo ? (
               <ProfileInfo userInfo={userInfo} logout={logout} />
