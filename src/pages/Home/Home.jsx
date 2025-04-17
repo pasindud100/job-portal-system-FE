@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../utils/axiosInstancs";
 
 function Home() {
   const [userInfo, setUserInfo] = useState(null);
   const [showModal, setShowModal] = useState(false); // to track modal visibility
   const navigate = useNavigate();
 
-  // for get user info
-  const getUserInfo = async () => {
-    try {
-      const response = await axiosInstance.get("/get-user");
-      if (response.data && response.data.user) {
-        setUserInfo(response.data.user);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        navigate("/login");
-      }
+  // Function to get user info from local storage
+  const getUserInfo = () => {
+    const isExistUser = localStorage.getItem("username");
+    if (isExistUser) {
+      setUserInfo(isExistUser);
+      console.log("User info:", isExistUser);
+    } else {
+      localStorage.clear();
+      navigate("/login");
     }
   };
 
-  // Logout
+  // Logout function
   const logout = () => {
     setShowModal(true);
   };
 
-  // confirm logout
+  // Confirm logout
   const handleLogoutConfirm = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username"); // Clear username from local storage
     setUserInfo(null);
     setShowModal(false);
     navigate("/login");

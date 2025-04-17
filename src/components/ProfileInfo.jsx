@@ -19,14 +19,12 @@ function ProfileInfo({ userInfo, logout }) {
       {userInfo && (
         <div>
           <div className="w-12 h-12 flex items-center justify-center text-slate-900 bg-slate-300 rounded-full font-medium ">
-            {getInitials(userInfo.fullName)}
+            {getInitials(userInfo)}
           </div>
           <div className="">
-            <p className="text-sm font-medium">{userInfo.fullName}</p>
             <button className="" onClick={logout}>
               LogOut
             </button>
-            
           </div>
         </div>
       )}

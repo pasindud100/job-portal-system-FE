@@ -60,6 +60,7 @@ function Login() {
         if (response.data.role === "ROLE_VISITOR") {
           navigate("/");
         }
+        window.location.reload(); // Reload the page to reflect the changes
       }
     } catch (error) {
       if (

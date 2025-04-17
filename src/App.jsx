@@ -17,6 +17,7 @@ import EmpDashboard from "./pages/Employer/EmpDashboard";
 import TrainerDashboard from "./pages/Trainer/TrainerDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home/Home";
 
 const App = () => {
   useEffect(() => {
@@ -31,7 +32,8 @@ const App = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
-      <Navbar/>
+      <Home />
+      {/* <Navbar/> */}
       <Routes>
         <Route
           path="/"

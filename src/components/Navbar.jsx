@@ -22,7 +22,6 @@ function Navbar({ userInfo, logout }) {
               <li>
                 <Link to={"/jobs"}>Jobs</Link>
               </li>
-
               <li>
                 <Link to={"/courses"}>Courses</Link>
               </li>
